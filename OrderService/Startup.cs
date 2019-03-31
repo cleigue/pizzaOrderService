@@ -32,6 +32,8 @@ namespace OrderService
             services.AddDbContext<OrderServiceContext>
                 (options => options.UseInMemoryDatabase("PizzaOrders")); //.UseSqlServer(connection));
 
+            
+
             services.AddCors(o => o.AddPolicy("AllPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
@@ -43,8 +45,10 @@ namespace OrderService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, OrderServiceContext context)
         {
+            context.Database.EnsureCreated();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
