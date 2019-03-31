@@ -30,7 +30,7 @@ namespace OrderService
             var connection = this.Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<OrderServiceContext>
-                (options => options.UseSqlServer(connection));
+                (options => options.UseInMemoryDatabase("PizzaOrders")); //.UseSqlServer(connection));
 
             services.AddCors(o => o.AddPolicy("AllPolicy", builder =>
             {
