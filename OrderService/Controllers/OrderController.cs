@@ -51,6 +51,7 @@ namespace OrderService.Controllers
             _context.Orders.Add(order);
 
             await _context.SaveChangesAsync();
+
             foreach (var item in order.Items)
             {
                 item.Order = null;
