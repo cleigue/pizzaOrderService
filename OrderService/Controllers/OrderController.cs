@@ -44,13 +44,19 @@ namespace OrderService.Controllers
 
         // POST: api/order
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrderItem(Order order)
+        public async Task<ActionResult<Order>> PostOrder(Order order)
         {
-            var newOrder = new Order { CreationDateTime = DateTime.Now, OrderStatus = OrderStatus.Created };
-            _context.Orders.Add(newOrder);
-            await _context.SaveChangesAsync();
+            order.CreationDateTime = DateTime.Now;
+            order.OrderStatus = OrderStatus.Created;
+            _context.Orders.Add(order);
 
-            return CreatedAtAction(nameof(PostOrderItem), new { id = order.OrderId }, newOrder);
+            await _context.SaveChangesAsync();
+            foreach (var item in order.Items)
+            {
+                item.Order = null;
+            }
+
+            return CreatedAtAction(nameof(PostOrder), new { id = order.OrderId }, order);
         }
 
 
