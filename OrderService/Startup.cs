@@ -31,8 +31,8 @@ namespace OrderService
 
             services.AddDbContext<OrderServiceContext>
                 (options => options
-                    .UseInMemoryDatabase("PizzaOrders")); 
-                    //.UseSqlServer(connection));
+                    //.UseInMemoryDatabase("PizzaOrders")); 
+                    .UseSqlServer(connection));
 
             
 
